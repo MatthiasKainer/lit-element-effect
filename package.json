@@ -24,6 +24,7 @@
     "typescript": "^3.9.5"
   },
   "author": "Matthias Kainer",
+  "homepage": "https://github.com/MatthiasKainer/lit-element-effect",
   "license": "ISC",
   "jest": {
     "transform": {
