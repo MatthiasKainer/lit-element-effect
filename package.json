@@ -18,10 +18,10 @@
     "@types/jest": "^25.2.3",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
-    "jest": "^26.0.1",
-    "ts-jest": "^26.1.0",
-    "ts-lit-plugin": "^1.1.11",
-    "typescript": "^3.9.5"
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6",
+    "ts-lit-plugin": "^1.2.1",
+    "typescript": "^3.9.9"
   },
   "author": "Matthias Kainer",
   "homepage": "https://github.com/MatthiasKainer/lit-element-effect",
