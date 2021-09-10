@@ -13,20 +13,22 @@ export function asUpdateableLitElement(element: LitLikeElement) {
   return (element as unknown) as UpdateableLitLikeElement;
 }
 
+const reservedKeyword = "__registered_effects";
+
 export function decorate(litElement: LitLikeElement) {
   const decoratedLitElement = litElement as DecoratedLitLikeElement;
-  if (decoratedLitElement.__registered_effects) return decoratedLitElement;
+  if (decoratedLitElement[reservedKeyword]) return decoratedLitElement;
 
   const updateableLitLikeElement = asUpdateableLitElement(litElement);
 
   const oldUpdated = updateableLitLikeElement.updated;
-  decoratedLitElement.__registered_effects = {
+  decoratedLitElement[reservedKeyword] = {
     index: 0,
     count: 0,
     effects: [],
   };
   updateableLitLikeElement.updated = (args) => {
-    decoratedLitElement.__registered_effects.index = 0;
+    decoratedLitElement[reservedKeyword].index = 0;
     return oldUpdated(args);
   };
   return decoratedLitElement;
@@ -34,14 +36,14 @@ export function decorate(litElement: LitLikeElement) {
 
 export function withEffect(litElement: LitLikeElement, effect: Effect) {
   const decoratedLitElement = decorate(litElement);
-  const { index, count } = decoratedLitElement.__registered_effects;
+  const { index, count } = decoratedLitElement[reservedKeyword];
   if (index === count) {
-    decoratedLitElement.__registered_effects.index++;
-    decoratedLitElement.__registered_effects.count++;
-    decoratedLitElement.__registered_effects.effects.push(effect);
+    decoratedLitElement[reservedKeyword].index++;
+    decoratedLitElement[reservedKeyword].count++;
+    decoratedLitElement[reservedKeyword].effects.push(effect);
     return effect;
   }
 
-  decoratedLitElement.__registered_effects.index++;
-  return decoratedLitElement.__registered_effects.effects[index];
+  decoratedLitElement[reservedKeyword].index++;
+  return decoratedLitElement[reservedKeyword].effects[index];
 }
